@@ -59,11 +59,6 @@ async function run() {
       }
     };
 
-    // Root GET route
-    app.get("/", (req, res) => {
-      res.send("Express server is running successfully!");
-    });
-
     // GET all books
     app.get("/all-books", async (req, res) => {
       try {
@@ -346,15 +341,19 @@ async function run() {
     });
 
     // Start Express server after successful DB connection
-    app.listen(PORT, () => {
-      console.log(`Server is listening on http://localhost:${PORT}`);
-    });
   } catch (error) {
     console.error("MongoDB Connection Error:", error);
   }
 }
-
 run();
+// Root GET route
+app.get("/", (req, res) => {
+  res.send("Express server is running successfully!");
+});
+app.listen(PORT, () => {
+  console.log(`Server is listening on http://localhost:${PORT}`);
+});
+
 export default app;
 // // import express from "express";
 
