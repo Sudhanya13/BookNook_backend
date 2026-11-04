@@ -17,7 +17,7 @@ const client = new MongoClient(process.env.MONGO_URI);
 async function run() {
   try {
     // Connect to MongoDB Database
-    await client.connect();
+    // await client.connect();
     console.log("Successfully connected to MongoDB!");
 
     // Specify Database Name and Collection Name
@@ -350,6 +350,7 @@ run();
 app.get("/", (req, res) => {
   res.send("Express server is running successfully!");
 });
+// server run due to this
 app.listen(PORT, () => {
   console.log(`Server is listening on http://localhost:${PORT}`);
 });
