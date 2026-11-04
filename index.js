@@ -376,7 +376,7 @@ export default app;
 // // // const PORT = 3000;
 
 // // // const client = new MongoClient(
-// // //   "mongodb+srv://SmartCrud:TREVr0yPSJo4aLct@cluster0.efgcz4b.mongodb.net/",
+
 // // // );
 
 // // // middleware ----
