@@ -149,9 +149,9 @@ async function run() {
     });
 
     // GET books added by logged-in user
-    app.get("/my-books", async (req, res) => {
+    app.get("/my-books", verifyToken, async (req, res) => {
       try {
-        const email = req.query.email;
+        const email = req.user.email;
 
         const books = await addbooksCollection
           .find({ "addedBy.email": email })
