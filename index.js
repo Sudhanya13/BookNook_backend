@@ -665,7 +665,7 @@ async function connectToDatabase() {
     serverSelectionTimeoutMS: 5000,
   });
 
-  await client.connect();
+  // await client.connect();
   cachedClient = client;
   console.log("Successfully connected to MongoDB!");
   return cachedClient;
@@ -685,6 +685,7 @@ async function getCollections() {
 const verifyToken = async (req, res, next) => {
   try {
     const authHeader = req.headers.authorization;
+    console.log(authHeader);
     if (!authHeader) {
       return res.status(401).send({ message: "user unauthorized" });
     }
@@ -756,7 +757,7 @@ app.get("/all-books/:id", verifyToken, async (req, res) => {
 });
 
 // Update book
-app.put("/all-books/:id", async (req, res) => {
+app.put("/all-books/:id", verifyToken, async (req, res) => {
   try {
     const { id } = req.params;
 
@@ -788,7 +789,7 @@ app.put("/all-books/:id", async (req, res) => {
 });
 
 // POST route to insert a book into MongoDB
-app.post("/add-book", async (req, res) => {
+app.post("/add-book", verifyToken, async (req, res) => {
   try {
     const { title, author, category, copies, cover, description, addedBy } =
       req.body;
@@ -858,7 +859,7 @@ app.get("/my-books", verifyToken, async (req, res) => {
 });
 
 // DELETE a book by ID
-app.delete("/all-books/:id", async (req, res) => {
+app.delete("/all-books/:id", verifyToken, async (req, res) => {
   try {
     const id = req.params.id;
 
@@ -883,7 +884,7 @@ app.delete("/all-books/:id", async (req, res) => {
 });
 
 // POST /my-borrows - Borrow a book
-app.post("/my-borrows", async (req, res) => {
+app.post("/my-borrows", verifyToken, async (req, res) => {
   try {
     const { bookId, userName, userEmail } = req.body;
 
@@ -987,7 +988,7 @@ app.get("/my-borrows", verifyToken, async (req, res) => {
 });
 
 // DELETE /my-borrows/:id - Return book
-app.delete("/my-borrows/:id", async (req, res) => {
+app.delete("/my-borrows/:id", verifyToken, async (req, res) => {
   try {
     const id = req.params.id;
 
