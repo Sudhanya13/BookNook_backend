@@ -261,9 +261,9 @@ async function run() {
     // ==================================
     // GET /my-borrows - Get user's borrowed books
     // ==================================
-    app.get("/my-borrows", async (req, res) => {
+    app.get("/my-borrows", verifyToken, async (req, res) => {
       try {
-        const email = req.query.email;
+        const email = req.user.email;
 
         if (!email) {
           return res.status(400).send({
@@ -322,7 +322,7 @@ async function run() {
     // ==================================
     // GET latest books (New Arrivals)
     // ==================================
-    app.get("/new-arrivals", async (req, res) => {
+    app.get("/new-arrivals", verifyToken, async (req, res) => {
       try {
         const books = await addbooksCollection
           .find()
