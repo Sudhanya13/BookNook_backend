@@ -99,7 +99,7 @@ async function run() {
     // POST route to insert a book into MongoDB
     app.post("/add-book", async (req, res) => {
       try {
-        const { title, author, category, cover, description, addedBy } =
+        const { title, author, category, copies, cover, description, addedBy } =
           req.body;
 
         // Validate required information
@@ -107,6 +107,8 @@ async function run() {
           !title ||
           !author ||
           !category ||
+          !Number.isInteger(Number(copies)) ||
+          Number(copies) < 1 ||
           !cover ||
           !description ||
           !addedBy?.name ||
@@ -124,6 +126,7 @@ async function run() {
           author,
           category,
           cover,
+          copies: Number(copies),
           description,
           addedBy: {
             name: addedBy.name,
