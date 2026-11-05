@@ -967,7 +967,7 @@ app.post("/my-borrows", async (req, res) => {
 });
 
 // GET /my-borrows - Get user's borrowed books
-app.get("/my-borrows", async (req, res) => {
+app.get("/my-borrows", verifyToken, async (req, res) => {
   try {
     const email = req.query.email;
 
